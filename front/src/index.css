@@ -4,6 +4,14 @@
 
 @layer components {
   .btn-primary {
-    @apply py-2 px-5 bg-violet-500 text-white font-semibold rounded-full shadow-md hover:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75;
+    @apply py-2 px-5 bg-gray-900 text-white font-semibold rounded-full shadow-md hover:bg-gray-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75;
+  }
+
+  main {
+    @apply flex flex-col p-2 items-center;
+
+    h1 {
+      @apply text-2xl font-bold py-4;
+    }
   }
 }
