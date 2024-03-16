@@ -1,5 +1,6 @@
 {
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "tailwind-fold.autoFold": true
 }
