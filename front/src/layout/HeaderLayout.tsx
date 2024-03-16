@@ -2,10 +2,10 @@ import logoSvg from "/logo.svg";
 
 function HeaderLayout() {
   return (
-    <header>
-      <a href="#">
-        <img src={logoSvg} alt="Logo" />
-        <span>Gestion Stock</span>
+    <header className="flex h-12 bg-gray-100 px-2">
+      <a href="#" className=" items-center gap-2 flex">
+        <img src={logoSvg} alt="Logo" className="h-10" />
+        <span className="font-bold text-xl">Gestion Stock</span>
       </a>
     </header>
   );
