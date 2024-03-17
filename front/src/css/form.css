@@ -1,6 +1,6 @@
 @layer components {
   form {
-    @apply flex flex-col w-full max-w-96;
+    @apply flex flex-col w-full max-w-96 gap-4;
 
     label {
       @apply flex flex-col;
@@ -11,7 +11,7 @@
       }
 
       span.error {
-        @apply h-4;
+        @apply h-4 font-bold;
       }
     }
 
