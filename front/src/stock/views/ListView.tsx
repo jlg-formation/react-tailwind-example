@@ -6,10 +6,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useArticleStore } from "../ArticleStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Article } from "../interfaces/Article";
 
 export default function ListView() {
   const articleStore = useArticleStore();
+  const [selectedArticles, setSelectedArticles] = useState(
+    new Set<Article["id"]>()
+  );
 
   useEffect(() => {
     console.log("checking if articles is undefined");
@@ -22,6 +26,13 @@ export default function ListView() {
     console.log("handleRefresh");
     await articleStore.refresh();
     console.log("refreshed");
+  };
+
+  const select = (a: Article) => () => {
+    selectedArticles.has(a.id)
+      ? selectedArticles.delete(a.id)
+      : selectedArticles.add(a.id);
+    setSelectedArticles(new Set(selectedArticles));
   };
   return (
     <main>
@@ -55,7 +66,11 @@ export default function ListView() {
             )}
             {articleStore.articles &&
               articleStore.articles.map((a) => (
-                <tr key={a.id}>
+                <tr
+                  key={a.id}
+                  onClick={select(a)}
+                  className={selectedArticles.has(a.id) ? "selected" : ""}
+                >
                   <td className="name">{a.name}</td>
                   <td className="price text-right">{a.price} €</td>
                   <td className="qty text-right">{a.qty}</td>
