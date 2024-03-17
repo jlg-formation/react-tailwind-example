@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import { sleep } from "../utils";
-import { Article, NewArticle } from "./interfaces/Article";
 import { api } from "./api";
+import { Article, NewArticle } from "./interfaces/Article";
 
 interface ArticleState {
   remove(selectedArticles: Set<string>): Promise<void>;
