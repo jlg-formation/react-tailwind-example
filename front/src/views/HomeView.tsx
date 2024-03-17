@@ -4,7 +4,7 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 function HomeView() {
   return (
-    <main>
+    <main className="flex-grow-0">
       <h1>Gérer efficacement votre stock !</h1>
       <Link to="/stock" className="btn-primary">
         <span>Voir le stock</span>
