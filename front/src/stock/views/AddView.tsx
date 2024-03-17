@@ -2,8 +2,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { NewArticle } from "../interfaces/Article";
+import { useArticleStore } from "../ArticleStore";
 
 export default function AddView() {
+  const articleStore = useArticleStore();
   const {
     register,
     handleSubmit,
@@ -17,8 +19,9 @@ export default function AddView() {
     },
   });
 
-  const onSubmit: SubmitHandler<NewArticle> = (newArticle) => {
+  const onSubmit: SubmitHandler<NewArticle> = async (newArticle) => {
     console.log("newArticle: ", newArticle);
+    await articleStore.add(newArticle);
   };
 
   return (
