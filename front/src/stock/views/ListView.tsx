@@ -6,9 +6,17 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useArticleStore } from "../ArticleStore";
+import { useEffect } from "react";
 
 export default function ListView() {
   const articleStore = useArticleStore();
+
+  useEffect(() => {
+    console.log("checking if articles is undefined");
+    if (articleStore.articles === undefined) {
+      articleStore.refresh();
+    }
+  }, [articleStore]);
 
   const handleRefresh = async () => {
     console.log("handleRefresh");
