@@ -1,0 +1,30 @@
+@layer components {
+  table {
+    @apply border-2 border-gray-300 rounded-md border-spacing-0 border-separate overflow-hidden;
+
+    thead {
+      @apply bg-gray-300;
+    }
+
+    td,
+    th {
+      @apply py-2 px-4;
+    }
+
+    tbody {
+      @apply cursor-pointer;
+
+      tr:nth-child(even) {
+        @apply bg-gray-100;
+      }
+
+      tr {
+        @apply hover:bg-gray-200;
+      }
+
+      tr.selected {
+        @apply bg-gray-300;
+      }
+    }
+  }
+}

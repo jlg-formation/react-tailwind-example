@@ -15,7 +15,7 @@ export default function ListView() {
           <button title="Rafraîchir" className="btn">
             <FontAwesomeIcon icon={faRotateRight} />
           </button>
-          <Link to="/stock/add" title="Ajouter" className="btn">
+          <Link to="/stock/add" title="Ajouter" className="button">
             <FontAwesomeIcon icon={faPlus} />
           </Link>
           <button title="Supprimer" className="btn">
