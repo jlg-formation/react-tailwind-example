@@ -28,6 +28,13 @@ export default function ListView() {
     console.log("refreshed");
   };
 
+  const handleRemove = async () => {
+    console.log("handleRemove");
+    await articleStore.remove(selectedArticles);
+    await articleStore.refresh();
+    console.log("removed");
+  };
+
   const select = (a: Article) => () => {
     selectedArticles.has(a.id)
       ? selectedArticles.delete(a.id)
@@ -46,7 +53,7 @@ export default function ListView() {
             <FontAwesomeIcon icon={faPlus} />
           </Link>
           {selectedArticles.size > 0 && (
-            <button title="Supprimer" className="btn">
+            <button title="Supprimer" className="btn" onClick={handleRemove}>
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           )}

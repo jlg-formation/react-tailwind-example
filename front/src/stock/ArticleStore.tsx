@@ -3,6 +3,7 @@ import { sleep } from "../utils";
 import { Article, NewArticle } from "./interfaces/Article";
 
 interface ArticleState {
+  remove(selectedArticles: Set<string>): Promise<void>;
   add(newArticle: NewArticle): Promise<void>;
   articles: Article[] | undefined;
   refresh: () => Promise<void>;
@@ -32,6 +33,18 @@ export const useArticleStore = create<ArticleState>((set) => ({
         return { articles: [article] };
       }
       return { articles: [...state.articles, article] };
+    });
+  },
+  async remove(selectedArticles: Set<Article["id"]>) {
+    await sleep(300);
+    set((state) => {
+      if (state.articles === undefined) {
+        return state;
+      }
+      const articles = state.articles.filter(
+        (a) => !selectedArticles.has(a.id)
+      );
+      return { articles };
     });
   },
 }));
