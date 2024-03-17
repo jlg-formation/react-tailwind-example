@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { NewArticle } from "../interfaces/Article";
 import { useArticleStore } from "../ArticleStore";
+import { useNavigate } from "react-router-dom";
 
 export default function AddView() {
   const articleStore = useArticleStore();
@@ -19,9 +20,13 @@ export default function AddView() {
     },
   });
 
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<NewArticle> = async (newArticle) => {
     console.log("newArticle: ", newArticle);
     await articleStore.add(newArticle);
+    await articleStore.refresh();
+    navigate("..");
   };
 
   return (
