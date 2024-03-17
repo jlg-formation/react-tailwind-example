@@ -45,9 +45,11 @@ export default function ListView() {
           <Link to="/stock/add" title="Ajouter" className="button">
             <FontAwesomeIcon icon={faPlus} />
           </Link>
-          <button title="Supprimer" className="btn">
-            <FontAwesomeIcon icon={faTrashAlt} />
-          </button>
+          {selectedArticles.size > 0 && (
+            <button title="Supprimer" className="btn">
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </button>
+          )}
         </nav>
         <div className="flex items-center h-8"></div>
         <table className="">
