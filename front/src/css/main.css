@@ -3,7 +3,7 @@
     @apply flex flex-col p-2 items-center flex-grow m-auto w-full max-w-3xl;
 
     h1 {
-      @apply text-4xl font-bold py-4;
+      @apply text-3xl font-bold py-4 text-center;
     }
 
     p {
