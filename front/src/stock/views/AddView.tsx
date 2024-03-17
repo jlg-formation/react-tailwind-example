@@ -7,8 +7,9 @@ export default function AddView() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<NewArticle>({
+    mode: "onChange",
     defaultValues: {
       name: "Truc",
       price: 0,
@@ -26,13 +27,21 @@ export default function AddView() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           <span>Nom</span>
-          <input type="text" {...register("name", { required: true })} />
-          <span className="error">{errors.name && "Champs requis."}</span>
+          <input
+            type="text"
+            {...register("name", { required: true, maxLength: 12 })}
+          />
+          <span className="error">
+            {errors.name && errors.name.type === "required" && "Champ requis."}
+            {errors.name &&
+              errors.name.type === "maxLength" &&
+              "Champ trop long."}
+          </span>
         </label>
         <label>
           <span>Prix</span>
           <input type="number" {...register("price", { required: true })} />
-          <span className="error">{errors.price && "Champs requis."}</span>
+          <span className="error">{errors.price && "Champ requis."}</span>
         </label>
         <label>
           <span>Quantité</span>
@@ -40,10 +49,10 @@ export default function AddView() {
             type="number"
             {...register("qty", { pattern: /\d+/, required: true })}
           />
-          <span className="error">{errors.qty && "Champs requis."}</span>
+          <span className="error">{errors.qty && "Champ requis."}</span>
         </label>
         <div className="error"></div>
-        <button className="primary">
+        <button className="primary" disabled={!isValid}>
           <FontAwesomeIcon icon={faPlus} />
           <span>Ajouter</span>
         </button>
