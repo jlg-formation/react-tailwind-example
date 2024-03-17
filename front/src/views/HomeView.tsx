@@ -6,7 +6,7 @@ function HomeView() {
   return (
     <main className="flex-grow-0">
       <h1>Gérer efficacement votre stock !</h1>
-      <Link to="/stock" className="btn-primary">
+      <Link to="/stock" className="btn btn-primary">
         <span>Voir le stock</span>
         <FontAwesomeIcon icon={faAngleRight} />
       </Link>
