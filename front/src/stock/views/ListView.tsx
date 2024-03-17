@@ -9,12 +9,14 @@ import { useArticleStore } from "../ArticleStore";
 import { useEffect, useState } from "react";
 import { Article } from "../interfaces/Article";
 import { sleep } from "../../utils";
+import AsyncButton from "../../widgets/AsyncButton";
 
 export default function ListView() {
   const articleStore = useArticleStore();
   const [selectedArticles, setSelectedArticles] = useState(
     new Set<Article["id"]>()
   );
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     console.log("checking if articles is undefined");
@@ -26,12 +28,14 @@ export default function ListView() {
   const handleRefresh = async () => {
     console.log("handleRefresh");
     await sleep(300);
-    await articleStore.refresh();
-    console.log("refreshed");
+    throw new Error("oups...error!");
+    // await articleStore.refresh();
+    // console.log("refreshed");
   };
 
   const handleRemove = async () => {
     console.log("handleRemove");
+    await sleep(300);
     await articleStore.remove(selectedArticles);
     await articleStore.refresh();
     console.log("removed");
@@ -43,24 +47,43 @@ export default function ListView() {
       : selectedArticles.add(a.id);
     setSelectedArticles(new Set(selectedArticles));
   };
+
+  const resetErrorMsg = () => {
+    setErrorMsg("");
+  };
+
+  const handleErrorMsg = (err: unknown) => {
+    if (err instanceof Error) {
+      setErrorMsg(err.message);
+    }
+  };
+
   return (
     <main>
       <h1>Liste des articles</h1>
       <div>
         <nav className="flex gap-1">
-          <button title="Rafraîchir" onClick={handleRefresh} className="btn">
-            <FontAwesomeIcon icon={faRotateRight} />
-          </button>
+          <AsyncButton
+            title="Rafraîchir"
+            action={handleRefresh}
+            icon={faRotateRight}
+            onStart={resetErrorMsg}
+            onAsyncError={handleErrorMsg}
+          />
           <Link to="/stock/add" title="Ajouter" className="button">
             <FontAwesomeIcon icon={faPlus} />
           </Link>
           {selectedArticles.size > 0 && (
-            <button title="Supprimer" className="btn" onClick={handleRemove}>
-              <FontAwesomeIcon icon={faTrashAlt} />
-            </button>
+            <AsyncButton
+              title="Supprimer"
+              action={handleRemove}
+              icon={faTrashAlt}
+              onStart={resetErrorMsg}
+              onAsyncError={handleErrorMsg}
+            />
           )}
         </nav>
-        <div className="flex items-center h-8"></div>
+        <div className="flex items-center h-8 font-bold">{errorMsg}</div>
         <table className="">
           <thead className="">
             <tr>
