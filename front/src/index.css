@@ -13,10 +13,14 @@
   }
 
   main {
-    @apply flex flex-col p-2 items-center flex-grow;
+    @apply flex flex-col p-2 items-center flex-grow m-auto w-full max-w-3xl;
 
     h1 {
       @apply text-2xl font-bold py-4;
+    }
+
+    p {
+      @apply w-full py-2;
     }
   }
 }
