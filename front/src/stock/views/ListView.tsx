@@ -5,14 +5,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { useArticleStore } from "../ArticleStore";
 
 export default function ListView() {
+  const articleStore = useArticleStore();
+
+  const handleRefresh = async () => {
+    console.log("handleRefresh");
+    await articleStore.refresh();
+    console.log("refreshed");
+  };
   return (
     <main>
       <h1>Liste des articles</h1>
       <div>
         <nav className="flex gap-1">
-          <button title="Rafraîchir" className="btn">
+          <button title="Rafraîchir" onClick={handleRefresh} className="btn">
             <FontAwesomeIcon icon={faRotateRight} />
           </button>
           <Link to="/stock/add" title="Ajouter" className="button">
@@ -32,26 +40,19 @@ export default function ListView() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="name">Tournevis</td>
-              <td className="price text-right">3.40 €</td>
-              <td className="qty text-right">123</td>
-            </tr>
-            <tr>
-              <td className="name">Tournevis</td>
-              <td className="price text-right">3.40 €</td>
-              <td className="qty text-right">123</td>
-            </tr>
-            <tr>
-              <td className="name">Tournevis</td>
-              <td className="price text-right">3.40 €</td>
-              <td className="qty text-right">123</td>
-            </tr>
-            <tr>
-              <td className="name">Tournevis</td>
-              <td className="price text-right">3.40 €</td>
-              <td className="qty text-right">123</td>
-            </tr>
+            {articleStore.articles === undefined && (
+              <tr>
+                <td colSpan={3}>Chargement...</td>
+              </tr>
+            )}
+            {articleStore.articles &&
+              articleStore.articles.map((a) => (
+                <tr key={a.id}>
+                  <td className="name">{a.name}</td>
+                  <td className="price text-right">{a.price} €</td>
+                  <td className="qty text-right">{a.qty}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
