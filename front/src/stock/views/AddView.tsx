@@ -8,7 +8,13 @@ export default function AddView() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<NewArticle>();
+  } = useForm<NewArticle>({
+    defaultValues: {
+      name: "Truc",
+      price: 0,
+      qty: 1,
+    },
+  });
 
   const onSubmit: SubmitHandler<NewArticle> = (newArticle) => {
     console.log("newArticle: ", newArticle);
