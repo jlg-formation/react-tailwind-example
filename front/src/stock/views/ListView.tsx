@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useArticleStore } from "../ArticleStore";
 import { useEffect, useState } from "react";
 import { Article } from "../interfaces/Article";
+import { sleep } from "../../utils";
 
 export default function ListView() {
   const articleStore = useArticleStore();
@@ -24,6 +25,7 @@ export default function ListView() {
 
   const handleRefresh = async () => {
     console.log("handleRefresh");
+    await sleep(300);
     await articleStore.refresh();
     console.log("refreshed");
   };
