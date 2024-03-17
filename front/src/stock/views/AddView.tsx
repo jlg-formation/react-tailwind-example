@@ -1,15 +1,16 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FieldValues, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { NewArticle } from "../interfaces/Article";
 
 export default function AddView() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<NewArticle>();
 
-  const onSubmit = (newArticle: FieldValues) => {
+  const onSubmit: SubmitHandler<NewArticle> = (newArticle) => {
     console.log("newArticle: ", newArticle);
   };
 
@@ -29,7 +30,10 @@ export default function AddView() {
         </label>
         <label>
           <span>Quantité</span>
-          <input type="number" {...register("qty", { required: true })} />
+          <input
+            type="number"
+            {...register("qty", { pattern: /\d+/, required: true })}
+          />
           <span className="error">{errors.qty && "Champs requis."}</span>
         </label>
         <div className="error"></div>
