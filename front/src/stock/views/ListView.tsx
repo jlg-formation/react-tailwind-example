@@ -28,9 +28,9 @@ export default function ListView() {
   const handleRefresh = async () => {
     console.log("handleRefresh");
     await sleep(300);
-    throw new Error("oups...error!");
-    // await articleStore.refresh();
-    // console.log("refreshed");
+    // throw new Error("oups...error!");
+    await articleStore.refresh();
+    console.log("refreshed");
   };
 
   const handleRemove = async () => {
